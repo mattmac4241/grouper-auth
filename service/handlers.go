@@ -72,6 +72,8 @@ func getTokenValidate(formatter *render.Render) http.HandlerFunc {
         if token.IsValid() == false {
             formatter.JSON(w, http.StatusUnauthorized, "Token expired")
         }
-        formatter.JSON(w, http.StatusFound, token)
+        userInfo := UserInfo{}
+        userInfo.ID = token.UserID
+        formatter.JSON(w, http.StatusFound, userInfo)
     }
 }

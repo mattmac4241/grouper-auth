@@ -16,6 +16,10 @@ type User struct {
     Password string `gorm:"not null"json:"password"`
 }
 
+type UserInfo struct {
+    ID   uint   `json:"id"`
+}
+
 //Token struct handles authentication
 type Token struct {
     gorm.Model
