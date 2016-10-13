@@ -16,16 +16,12 @@ type User struct {
     Password string `gorm:"not null"json:"password"`
 }
 
-type UserInfo struct {
-    ID   uint   `json:"id"`
-}
-
 //Token struct handles authentication
 type Token struct {
     gorm.Model
     Key         string   `json:"token"`
     UserID      uint      `json:"user_id"`
-    ExpiresAt   int64    `json:"-"`
+    ExpiresAt   int64    `json:"expires_at"`
 }
 
 //BeforeSave hash password
@@ -52,10 +48,7 @@ func (t *Token) BeforeSave() (err error){
 //IsValid checks if a token has expired
 func (t *Token) IsValid() bool {
     duration := time.Now().Add(time.Hour * 24 * 7 * time.Duration(8)).Unix()
-    if t.ExpiresAt < duration{
-        return false
-    }
-    return true
+    return t.ExpiresAt < duration
 }
 
 //generates token string from username

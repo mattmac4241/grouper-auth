@@ -54,7 +54,7 @@ func postLoginHandler(formatter *render.Render) http.HandlerFunc {
             formatter.JSON(w, http.StatusInternalServerError, "Failed to create token.")
             return
         }
-        formatter.JSON(w, http.StatusCreated, token)
+        formatter.JSON(w, http.StatusOK, token)
     }
 }
 
@@ -71,9 +71,8 @@ func getTokenValidate(formatter *render.Render) http.HandlerFunc {
         }
         if token.IsValid() == false {
             formatter.JSON(w, http.StatusUnauthorized, "Token expired")
+            return
         }
-        userInfo := UserInfo{}
-        userInfo.ID = token.UserID
-        formatter.JSON(w, http.StatusFound, userInfo)
+        formatter.JSON(w, http.StatusOK, token)
     }
 }
