@@ -47,8 +47,7 @@ func (t *Token) BeforeSave() (err error){
 
 //IsValid checks if a token has expired
 func (t *Token) IsValid() bool {
-    duration := time.Now().Add(time.Hour * 24 * 7 * time.Duration(8)).Unix()
-    return t.ExpiresAt < duration
+    return t.ExpiresAt > time.Now().Unix()
 }
 
 //generates token string from username
