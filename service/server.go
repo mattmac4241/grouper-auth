@@ -14,14 +14,14 @@ func NewServer() *negroni.Negroni {
 
     n := negroni.Classic()
     mx := mux.NewRouter()
-
-    initRoutes(mx, formatter)
+    repo := &repoHandler{}
+    initRoutes(mx, formatter, repo)
     n.UseHandler(mx)
     return n
 }
 
-func initRoutes(mx *mux.Router, formatter *render.Render) {
-    mx.HandleFunc("/auth/login", postLoginHandler(formatter)).Methods("POST")
-    mx.HandleFunc("/auth/register", postUserHandler(formatter)).Methods("POST")
-    mx.HandleFunc("/auth/token/{token}", getTokenValidate(formatter)).Methods("GET")
+func initRoutes(mx *mux.Router, formatter *render.Render, repo repository) {
+    mx.HandleFunc("/auth/login", postLoginHandler(formatter, repo)).Methods("POST")
+    mx.HandleFunc("/auth/register", postUserHandler(formatter, repo)).Methods("POST")
+    mx.HandleFunc("/auth/token/{token}", getTokenValidate(formatter, repo)).Methods("GET")
 }

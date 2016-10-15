@@ -1,7 +1,6 @@
 package service
 
 import (
-    "fmt"
     "os"
     "time"
     "golang.org/x/crypto/bcrypt"
@@ -56,7 +55,6 @@ func genToken(userID uint) (string, error) {
         "user": userID,
     })
     tokenString, err := token.SignedString([]byte(os.Getenv("SECRET_KEY")))
-    fmt.Println(err)
     return tokenString, err
 }
 
