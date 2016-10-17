@@ -77,3 +77,9 @@ func getTokenValidate(formatter *render.Render, repo repository) http.HandlerFun
         formatter.JSON(w, http.StatusOK, token)
     }
 }
+
+func getPingHandler(formatter *render.Render) http.HandlerFunc {
+    return func(w http.ResponseWriter, req *http.Request) {
+        formatter.JSON(w, http.StatusOK, "PING")
+    }
+}

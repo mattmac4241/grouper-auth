@@ -24,4 +24,5 @@ func initRoutes(mx *mux.Router, formatter *render.Render, repo repository) {
     mx.HandleFunc("/auth/login", postLoginHandler(formatter, repo)).Methods("POST")
     mx.HandleFunc("/auth/register", postUserHandler(formatter, repo)).Methods("POST")
     mx.HandleFunc("/auth/token/{token}", getTokenValidate(formatter, repo)).Methods("GET")
+    mx.HandleFunc("/ping", getPingHandler(formatter)).Methods("GET")
 }
