@@ -23,6 +23,11 @@ type Token struct {
     ExpiresAt   int64    `json:"expires_at"`
 }
 
+type Service struct {
+    Name        string      `json:"name"`
+    URL         string      `json:"url"`
+}
+
 //BeforeSave hash password
 func (u *User) BeforeSave() (err error){
     hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
